@@ -1,26 +1,41 @@
 package test.utils;
 
+import costco.page.elements.MainPageElements;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SeleniumUtilityMethods {
 
-/*
-    public static Map<String, String> getTabText(WebDriver driver, WebElement element){
+
+    public static List<String> getTabText(WebDriver driver, List<WebElement> elements){
 
 
+        List<WebElement> allSubTabsList = (List<WebElement>) elements;
+        List<String> getSubTabTittles = new ArrayList<>();
 
-return a;
+        for(WebElement eachSubTab :  allSubTabsList ) {
+            String tabText = eachSubTab.getText();
+
+            if (tabText.contains("\n")) {
+              String[] allText =  tabText.split("\n");
+
+                getSubTabTittles.add(allText [0].trim());
+            }else{
+                getSubTabTittles.add(eachSubTab.getText().trim());
+            }
+        }
+return getSubTabTittles;
 
     }
 
-/*
+
 
 
     /**
@@ -32,9 +47,9 @@ return a;
         List<WebElement> options = dropDownSelection.getOptions();
         Map<String, String> availableOptions = new HashMap<>();
         for (WebElement option : options) {
-            String methodValue = option.getAttribute("value");
-            String methodText = option.getText();
-            availableOptions.put(methodValue, methodText);
+            String optionValue = option.getAttribute("value");
+            String optionText = option.getText();
+            availableOptions.put(optionValue, optionText);
         }
 
         return availableOptions;
@@ -91,6 +106,18 @@ return a;
                     "No selection option '" + selectOptionValue + "' was found.");
         }
     }
+
+    /**
+     * This method will click on the Tab by passing
+     */
+    public static void clickTab(WebDriver driver, WebElement element) {
+        if(element != null && (!element.isSelected())) {
+            element.click();
+        }
+    }
+
+
+
 
 
 

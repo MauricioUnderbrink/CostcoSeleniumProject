@@ -110,6 +110,18 @@ public class MainPageElements {
 
 
     /**
+     * This method returns the Destination error message field WebElement from the Vacation Packages tab
+     * @param driver
+     * @return WebElement
+     */
+    public static WebElement getDestinationErrorElement(WebDriver driver ) {
+        WebElement destinationerrorElement = driver.findElement(By.xpath("//label[@id='vacation_package_destination_widget-error']"));
+        return destinationerrorElement;
+    }
+
+
+
+    /**
      * This method returns the Destination field WebElement from the Vacation Packages tab
      * @param driver
      * @return WebElement
