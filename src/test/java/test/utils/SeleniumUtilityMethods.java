@@ -1,11 +1,13 @@
 package test.utils;
-
 import costco.page.elements.MainPageElements;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -116,9 +118,94 @@ return getSubTabTittles;
         }
     }
 
+    /**
+     * This method returns the selected option from a dropdown
+     * @param element
+     * @return String
+     */
+    public static String getSelectedOption(WebElement element) {
+        Select getSelectedDestination = new Select(element);
+        String selectedOption = getSelectedDestination.getFirstSelectedOption().getText();
+        return selectedOption;
+    }
+
+    /**
+     * This method selects the parent Tab and also the sub tab
+     * @param driver
+     * @param parentTab
+     *  @param childTab
+     */
+    public static void selectParentAndChildTab(WebDriver driver, WebElement parentTab, WebElement childTab) {
+        SeleniumUtilityMethods.clickTab(driver, parentTab);
+        SeleniumUtilityMethods.clickTab(driver, childTab);
+    }
+
+    /**
+     * This method sets the dropdown by text and asserts that it is selected
+     * @param driver
+     * @param element
+     *  @param optionText
+     */
+    public static void setDropdownAndCheckThatIsSelected(WebDriver driver, WebElement element, String optionText) {
+        SeleniumUtilityMethods.setDropdownByText(driver, element, optionText);
+        //Check that the selected option gets selected
+        String selectedDestinationOption = SeleniumUtilityMethods.getSelectedOption(element);
+        Assert.assertEquals(selectedDestinationOption,optionText);
+    }
 
 
+    /**
+     * This method sets the dropdown by text and asserts that the options do contain the giving text
+     * @param driver
+     * @param element
+     *  @param optionText
+     */
+    public static void checkOptionsDoContainText(WebDriver driver, WebElement element, String optionText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        if(element != null) {
+            wait.until(ExpectedConditions.visibilityOf(element));
+        }
+        //Get all Keys and Values from the Region options
+        Map<String, String> getAvailableOptions = SeleniumUtilityMethods.getAvailableDropdownOptions(driver,element);
+        List<String> getTextList = new ArrayList<>(getAvailableOptions.values());
+        Assert.assertTrue(getTextList.contains(optionText));
+    }
+
+    /**
+     * This method sets the dropdown by text and asserts that the options do not contain the giving text
+     * @param driver
+     * @param element
+     *  @param optionText
+     */
+    public static void checkOptionsDoNotContainText(WebDriver driver, WebElement element, String optionText) {
+       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        if(element != null) {
+            wait.until(ExpectedConditions.visibilityOf(element));
+        }
+            //Get all Keys and Values from the Region options
+            Map<String, String> getAvailableOptions = SeleniumUtilityMethods.getAvailableDropdownOptions(driver,element);
+            List<String> getTextList = new ArrayList<>(getAvailableOptions.values());
+            Assert.assertFalse(getTextList.contains(optionText));
+        }
 
 
+    /**
+     * This method will select a date from a calendar
+     * @param driver
+     * @param element
+     *  @param String
+     */
+        public static void selectDateFromCalendar(WebDriver driver, WebElement element,String Month, String Day, String year  ){
 
-}
+            //click on the calendar
+          WebElement dateCalendar = MainPageElements.getDepartureCalendarWidgetElement(driver);
+            dateCalendar.click();
+            //select a data
+
+
+            //WebElement date = dateCalendar.findElement(".//td[@tille = '"+);
+
+        }
+
+
+    }

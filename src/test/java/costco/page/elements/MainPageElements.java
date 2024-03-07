@@ -104,7 +104,7 @@ public class MainPageElements {
      * @return WebElement
      */
     public static WebElement getDestinationFieldElement(WebDriver driver ) {
-        WebElement destinationFieldElement = driver.findElement(By.xpath("//input[@id='vacation_package_destination']"));
+        WebElement destinationFieldElement = driver.findElement(By.xpath("//select[@id='vacation_package_destination']"));
         return destinationFieldElement;
     }
 
@@ -127,7 +127,7 @@ public class MainPageElements {
      * @return WebElement
      */
     public static WebElement getRegionFieldElement(WebDriver driver ) {
-        WebElement regionFieldElement = driver.findElement(By.xpath("///select[@id='region']"));
+        WebElement regionFieldElement = driver.findElement(By.xpath("//select[@id='region']"));
         return regionFieldElement;
     }
 
@@ -138,8 +138,18 @@ public class MainPageElements {
      * @param driver
      * @return WebElement
      */
-    public static WebElement getDepartureDateWidgetElement(WebDriver driver ) {
-        WebElement departureDateWidget = driver.findElement(By.xpath("//input[@id='departureDateWidget']"));
+    public static WebElement getDepartureDateFieldElement(WebDriver driver ) {
+        WebElement departureDateField = driver.findElement(By.xpath("//input[@id='departureDateWidget']"));
+        return departureDateField;
+    }
+
+    /**
+     * This method returns the Departure Date calendar Widget WebElement from the Vacation Packages tab
+     * @param driver
+     * @return WebElement
+     */
+    public static WebElement getDepartureCalendarWidgetElement(WebDriver driver ) {
+        WebElement departureDateWidget = driver.findElement(By.xpath("//div[@id='departure_date_widget']//button[@type='button']"));
         return departureDateWidget;
     }
 

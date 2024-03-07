@@ -18,4 +18,16 @@ public class SeleniumUtilsActions {
         actions.scrollToElement(element);
     }
 
+
+    /**
+     * This method forces a wait
+     */
+    public static void waitThread() {
+        try {
+            Thread.sleep(1000); // Sleep for 5 seconds (5000 milliseconds)
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
