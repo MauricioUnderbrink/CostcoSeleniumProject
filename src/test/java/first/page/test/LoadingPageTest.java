@@ -1,11 +1,9 @@
 package first.page.test;
-
 import costco.page.elements.MainPageElements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -13,11 +11,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import test.utils.SeleniumUtilityMethods;
 import test.utils.SeleniumUtilsActions;
-
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LoadingPageTest {
 
@@ -126,7 +122,7 @@ public class LoadingPageTest {
         SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
 
         //Select a destination option by text and check that it was selected
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Canada" );
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Canada");
 
     }
 
@@ -135,15 +131,15 @@ public class LoadingPageTest {
      * This test will select a Region after selecting a Destination dropdown
      */
     @Test(priority = 6)
-    public static void testSelectingARegion(){
+    public static void testSelectingARegion() {
         SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
         //Select a destination option by text and check that the selected option is checked
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Hawaii" );
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Hawaii");
 
         //Select a Region and check that the correct selection gets selected
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(MainPageElements.getRegionFieldElement(driver)));
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getRegionFieldElement(driver), "Oahu, HI" );
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getRegionFieldElement(driver), "Oahu, HI");
 
     }
 
@@ -151,13 +147,13 @@ public class LoadingPageTest {
      * This test selecting an Incorrect Region
      */
     @Test(priority = 7)
-    public static void testSelectingIncorrectRegion(){
+    public static void testSelectingIncorrectRegion() {
         SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
         //Select a destination option by text
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Florida" );
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Florida");
 
         //Select a Region
-        SeleniumUtilityMethods.checkOptionsDoNotContainText(driver,MainPageElements.getRegionFieldElement(driver), "Oahu, HI" );
+        SeleniumUtilityMethods.checkOptionsDoNotContainText(driver, MainPageElements.getRegionFieldElement(driver), "Oahu, HI");
 
     }
 
@@ -169,34 +165,13 @@ public class LoadingPageTest {
     public static void testSelectingARegionThenUpdateTheDestination() {
         SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
         //Select a destination option by text
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Florida");
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Florida");
         //Select a Region
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getRegionFieldElement(driver), "Miami, FL");
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getRegionFieldElement(driver), "Miami, FL");
         //Update the Destination
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Hawaii");
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Hawaii");
         //Check that the Region no longer contains the selected option
-        SeleniumUtilityMethods.checkOptionsDoNotContainText(driver,MainPageElements.getRegionFieldElement(driver), "Miami, FL" );
+        SeleniumUtilityMethods.checkOptionsDoNotContainText(driver, MainPageElements.getRegionFieldElement(driver), "Miami, FL");
     }
-
-    /**
-     * This Test will select a destination, a region, a departure and return date
-     */
-    @Test(priority = 9)
-    public static void testSelectingDepartureAndReturnDates(){
-        SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
-        //Select a destination option by text
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getDestinationFieldElement(driver), "Florida");
-        //Select a Region
-        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver,MainPageElements.getRegionFieldElement(driver), "Miami, FL");
-
-
-
-
-    }
-
-
-
-
-
 
 }

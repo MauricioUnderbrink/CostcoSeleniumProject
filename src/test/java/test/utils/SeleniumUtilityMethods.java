@@ -15,10 +15,13 @@ import java.util.Map;
 
 public class SeleniumUtilityMethods {
 
-
+    /**
+     * This method will return the title from each tab
+     * @param driver
+     *  @param elements
+     *  @return List String
+     */
     public static List<String> getTabText(WebDriver driver, List<WebElement> elements){
-
-
         List<WebElement> allSubTabsList = (List<WebElement>) elements;
         List<String> getSubTabTittles = new ArrayList<>();
 
@@ -38,10 +41,10 @@ return getSubTabTittles;
     }
 
 
-
-
     /**
      * This method will return all the available options from a dropdown selection field
+     *  @param element
+     *  @return Map String, String
      */
     public static Map<String, String> getAvailableDropdownOptions(WebDriver driver,
                                                                   WebElement element) {
@@ -59,6 +62,10 @@ return getSubTabTittles;
 
     /**
      * This method will set the dropdown field to the given text
+     * @param driver
+     * @param element
+     * @param selectOptionText
+     *
      */
     public static void setDropdownByText(WebDriver driver, WebElement element,
                                          String selectOptionText) {
@@ -87,6 +94,9 @@ return getSubTabTittles;
 
     /**
      * This method will set the dropdown field to the given value
+     * @param driver
+     * @param element
+     * @param selectOptionValue
      */
     public static void setDropdownByValue(WebDriver driver, WebElement element,
                                           String selectOptionValue) {
@@ -111,6 +121,8 @@ return getSubTabTittles;
 
     /**
      * This method will click on the Tab by passing
+     * @param driver
+     * @param element
      */
     public static void clickTab(WebDriver driver, WebElement element) {
         if(element != null && (!element.isSelected())) {
@@ -186,25 +198,6 @@ return getSubTabTittles;
             Map<String, String> getAvailableOptions = SeleniumUtilityMethods.getAvailableDropdownOptions(driver,element);
             List<String> getTextList = new ArrayList<>(getAvailableOptions.values());
             Assert.assertFalse(getTextList.contains(optionText));
-        }
-
-
-    /**
-     * This method will select a date from a calendar
-     * @param driver
-     * @param element
-     *  @param String
-     */
-        public static void selectDateFromCalendar(WebDriver driver, WebElement element,String Month, String Day, String year  ){
-
-            //click on the calendar
-          WebElement dateCalendar = MainPageElements.getDepartureCalendarWidgetElement(driver);
-            dateCalendar.click();
-            //select a data
-
-
-            //WebElement date = dateCalendar.findElement(".//td[@tille = '"+);
-
         }
 
 
