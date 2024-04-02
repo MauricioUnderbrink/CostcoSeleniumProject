@@ -158,11 +158,20 @@ public class MainPageElements {
      * @param driver
      * @return WebElement
      */
-    public static WebElement getReturnDateWidgetElement(WebDriver driver ) {
+    public static WebElement getReturnDateFieldElement(WebDriver driver ) {
         WebElement returnDateWidget = driver.findElement(By.xpath("//input[@id='returnDateWidget']"));
         return returnDateWidget;
     }
 
+    /**
+     * This method returns the Return Date Widget WebElement from the Vacation Packages tab
+     * @param driver
+     * @return WebElement
+     */
+    public static WebElement getReturnDateWidgetElement(WebDriver driver ) {
+        WebElement returnDateWidget = driver.findElement(By.xpath("//img[@title='Return date calendar']"));
+        return returnDateWidget;
+    }
 
     /**
      * This method returns the Flying From Checkbox WebElement from the Vacation Packages tab
@@ -175,13 +184,35 @@ public class MainPageElements {
     }
 
     /**
-     * This method returns the Flying From Airport Selection WebElement from the Vacation Packages tab
+     * This method returns the Flying From Airport Selection Field WebElement from the Vacation Packages tab
      * @param driver
      * @return WebElement
      */
-    public static WebElement getFlyingFromAirportCitySelectionElement(WebDriver driver ) {
+    public static WebElement getFlyingFromAirportSelectionFieldElement(WebDriver driver ) {
         WebElement flyingFromAirportSelection = driver.findElement(By.xpath("//input[@id='departureCityTextWidget']"));
         return flyingFromAirportSelection;
+    }
+
+
+
+    /**
+     * This method returns the Flying From Airport Dynamic Selection options WebElement from the Vacation Packages tab
+     * @param driver
+     * @return WebElement
+     */
+    public static List<WebElement> getFlyingFromAirportDynamicSelectionElement(WebDriver driver ) {
+       List<WebElement> flyingFromAirportDynamicSelection = driver.findElements(By.xpath("//ul[@class='ui-list']/li"));
+        return flyingFromAirportDynamicSelection ;
+    }
+
+    /**
+     * This method returns the text from the selected Flying From Airport Field WebElement from the Vacation Packages tab
+     * @param driver
+     * @return WebElement
+     */
+    public static String getFlyingFromSelectedAirport(WebDriver driver ) {
+        WebElement flyingFromSelectedAirport = driver.findElement(By.xpath("//div[contains(@class, 'departureLocationWidget')]/input"));
+        return flyingFromSelectedAirport.getAttribute("lastselectedvalue") ;
     }
 
     /**

@@ -1,4 +1,5 @@
 package first.page.test;
+
 import costco.page.elements.MainPageElements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,11 +12,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import test.utils.SeleniumUtilityMethods;
 import test.utils.SeleniumUtilsActions;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadingPageTest {
+public class PackagesVacationPackagesTest {
 
     static WebDriver driver;
 
@@ -173,5 +175,48 @@ public class LoadingPageTest {
         //Check that the Region no longer contains the selected option
         SeleniumUtilityMethods.checkOptionsDoNotContainText(driver, MainPageElements.getRegionFieldElement(driver), "Miami, FL");
     }
+
+    /**
+     * This Test will enter a Departure and Return day using the text field
+     */
+    @Test(priority = 9)
+    public static void testEnteringDepartureDateAndReturnDate() {
+        //SeleniumUtilsActions.refreshScreen(driver,MainPageElements.getVacationPackagesTabElement(driver));
+        SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
+        //Select a destination option by text
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Florida");
+        //Select a Region
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getRegionFieldElement(driver), "Miami, FL");
+        //Enter the Departure date using today's date and the return date by giving a number of total days
+        SeleniumUtilityMethods.enterDepartureAndReturnDateAsText(driver, MainPageElements.getDepartureDateFieldElement(driver),
+                MainPageElements.getReturnDateFieldElement(driver), 8);
+        //Select Airport
+        SeleniumUtilityMethods.selectFlyingFromAirport(driver, "Seattle");
+
+    }
+
+
+    /**
+     * This Test will enter a Flying from airport and will also check that the correct airport gets selected
+     */
+    @Test(priority = 10)
+    public static void testEnteringTheFlyingFromAirport() {
+        SeleniumUtilityMethods.selectParentAndChildTab(driver, MainPageElements.getPackagesTabElement(driver), MainPageElements.getVacationPackagesTabElement(driver));
+        //Select a destination option by text
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getDestinationFieldElement(driver), "Florida");
+        //Select a Region
+        SeleniumUtilityMethods.setDropdownAndCheckThatIsSelected(driver, MainPageElements.getRegionFieldElement(driver), "Miami, FL");
+        //Enter the Departure date using today's date and the return date by giving a number of total days
+        SeleniumUtilityMethods.enterDepartureAndReturnDateAsText(driver, MainPageElements.getDepartureDateFieldElement(driver),
+                MainPageElements.getReturnDateFieldElement(driver), 8);
+        //Select Airport
+        SeleniumUtilityMethods.selectFlyingFromAirport(driver, "Chicago O'Hare");
+        //Assert that the field has the correct airport
+        String airportSelected = MainPageElements.getFlyingFromSelectedAirport(driver);
+        String airportToSelect = "(ORD) Chicago O'Hare International";
+        Assert.assertEquals(airportSelected, airportToSelect);
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package test.utils;
 import costco.page.elements.MainPageElements;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -200,5 +203,64 @@ return getSubTabTittles;
             Assert.assertFalse(getTextList.contains(optionText));
         }
 
+
+    /**
+     * This method sets the departure date using the current date and the return using a number of total days in the text fields
+     * @param driver
+     * @param departureDateElement
+     *  @param returnDateElement
+     * @param numberOfDays
+     */
+    public static void enterDepartureAndReturnDateAsText(WebDriver driver, WebElement departureDateElement, WebElement returnDateElement, int numberOfDays) {
+
+        //Get current date
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String departureDateToString = currentDate.format(dateFormat);
+
+        //Get the return Date
+        LocalDate returnDate = currentDate.plusDays(numberOfDays);
+        String returnDateToString = returnDate.format(dateFormat);
+
+        //Enter the Departure Date on the text field
+        departureDateElement.sendKeys(departureDateToString);
+
+        //Enter the Return Date on the text field
+        returnDateElement.sendKeys(returnDateToString);
+    }
+
+
+
+
+    /**
+     * This method sets the Flying From Airport
+     * @param driver
+     * @param airport
+     */
+    public static void selectFlyingFromAirport(WebDriver driver, String airport) {
+        //Check the Flying From checkbox
+        if(!MainPageElements.getFlyingFromCheckboxElement(driver).isSelected())
+        {
+            MainPageElements.getFlyingFromCheckboxElement(driver).click();
+        }
+        //Enter the Airport
+        WebElement airportWebElement = MainPageElements.getFlyingFromAirportSelectionFieldElement(driver);
+        airportWebElement.clear();
+        airportWebElement.sendKeys(airport);
+        //add explicit wait
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='ui-list']/li")));
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@id='screenreader-departureCityTextWidget']")));
+        List<WebElement> listOfAirportElementOptions = MainPageElements.getFlyingFromAirportDynamicSelectionElement(driver);
+        for(WebElement option: listOfAirportElementOptions){
+            option.getText();
+            if(option.getText().contains(airport)){
+                option.click();
+                break;
+            }
+
+        }
+        //throw new RuntimeException("Airport option not found: " + airport);
+    }
 
     }
